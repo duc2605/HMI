@@ -1,3 +1,6 @@
+tôi là Đức, tôi thèm ăn cứt, tôi yêu cứt
+
+
 file 1 mở trong Factory IO;
 file 2 mở trong TIA Portal V20;
 file 3 mở trong S7 - PCLSIM V20;
