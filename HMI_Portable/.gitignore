@@ -1,0 +1,8 @@
+﻿
+Runtime_AutoSync_Backup/
+
+Runtime_AutoSync_Stage_*/
+
+Tools/AutoSync-Status.txt
+
+Tools/video-logs/

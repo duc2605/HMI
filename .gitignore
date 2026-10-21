@@ -1,0 +1,7 @@
+
+/HMI_Portable/Tools/*.exe
+/HMI_Portable/ChayDuAn.exe
+/HMI_Portable/Tools/video-logs/
+/HMI_Portable/Tools/AutoSync-Status.txt
+/HMI_Portable/Runtime_AutoSync_Backup/
+/HMI_Portable/Runtime_AutoSync_Stage_*/

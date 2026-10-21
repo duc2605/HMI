@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DownloadTask>
+  <ProjectInfo
+    DeviceVersion="17.0.0.0"
+    CreationTime="2026-10-21 11:02:19 (UTC)"
+    Runtime="COLORADO"
+    RtProjectName="Nhom2_FactoryIO_Template_S7-1200_V20_Version1.HMI_1[TP900 Comfort]"
+    RtProjectFolderName="Nhom2_FactoryIO_Template_S7-1200_V20_Version1.HMI_1[TP900 Comfort]"
+    DeviceType="TP900 Comfort"
+    DisplayOrientation="0"
+    RTReleaseNo="17.0.0.0"
+    ImageReleaseNo="17.0.0.0"
+    RTCV="17.0.0.0"
+    PRCV="17.0.0.0"
+    FirmwareFileName=""
+    RuntimeFileName=""
+    RuntimeAddonFolderName="CP_7_9" />
+  <FullDownload>pdata.fwc</FullDownload>
+  <FullDownload
+    type="ADMINDATA">pdata.pwx</FullDownload>
+  <FullDownload>ProjectSettings.hsf</FullDownload>
+  <FullDownload>DeviceSettings.hsf</FullDownload>
+  <FullDownload>Connection.p12</FullDownload>
+</DownloadTask>

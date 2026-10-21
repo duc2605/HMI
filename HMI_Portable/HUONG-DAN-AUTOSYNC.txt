@@ -1,0 +1,47 @@
+HMI AUTOSYNC - PHAN BO SUNG CHO HMI_PORTABLE
+
+CAI MOT LAN
+1. Chep BatTuDongBo.cmd, TatTuDongBo.cmd, HUONG-DAN-AUTOSYNC.txt vao
+   HMI_Portable. Chep Tools/AutoSync.ps1 vao HMI_Portable/Tools.
+   Giu nguyen cac file cu, Runtime, Tools, scene va ChayDuAn.exe.
+2. Chay BatTuDongBo.cmd. Chon pdata.fwc NGUON tai:
+   Nhom2_FactoryIO_Template_S7-1200_V20_Version1/IM/HMI/C/0/Generates/pdata.fwc
+   KHONG chon HMI_Portable/Runtime/pdata.fwc.
+3. Dong WinCC Runtime. Cho khoang 15 giay roi xem Tools/AutoSync-Status.txt.
+   SYNC OK nghia la da cap nhat xong. Sau do dung ChayDuAn.exe nhu truoc.
+
+CACH HOAT DONG
+- Mot tien trinh PowerShell chay an, kiem tra tep nguon moi 3 giay.
+- Sau khi toan bo danh sach/kich thuoc/thoi gian sua tep on dinh 10 giay,
+  sao chep toan bo Generates vao thu muc tam va doi chieu SHA256.
+- Neu nguon thay doi trong khi chep, hoac Runtime dang mo, se cho/thu lai.
+- Runtime dang chay KHONG tu nhan giao dien moi. Dong Runtime, cho SYNC OK,
+  roi mo lai ChayDuAn.exe.
+- Ban Runtime truoc duoc giu o Runtime_AutoSync_Backup (chi giu mot ban).
+- Tu dong chay sau khi dang nhap Windows bang shortcut trong Startup cua
+  tai khoan hien tai. Khong yeu cau quyen administrator.
+- BatTuDongBo.cmd cung co the chay lai de doi duong dan nguon.
+- TatTuDongBo.cmd dung watcher va go shortcut Startup, khong xoa Runtime.
+- Doi cho/doi ten HMI_Portable: chay TatTuDongBo.cmd truoc khi di chuyen,
+  roi chay BatTuDongBo.cmd tai vi tri moi.
+
+GIOI HAN
+- Theo doi dau ra tren o dia, KHONG nhan su kien "compile thanh cong" tu TIA.
+  Chi phat hanh sau khi TIA bao compile 0 errors va AutoSync bao SYNC OK.
+  Neu compile bao loi, watcher van co the thay du lieu trung gian on dinh;
+  dung TatTuDongBo.cmd va giu/khoi phuc Runtime_AutoSync_Backup khi can.
+- Chi dong bo du lieu HMI. Khong dong bo scene Factory I/O, chuong trinh PLC,
+  cac tai nguyen ben ngoai Generates; khong tu git commit/push.
+- Khi compile khong thay doi dau ra, khong can chep lai.
+- Cau hinh duong dan nguon va log chi tiet nam trong LocalAppData tren may
+  hien tai, khong duoc dua vao GitHub. Tools/AutoSync-Status.txt va thu muc
+  backup/tam duoc them vao .gitignore ben trong HMI_Portable.
+- May nguoi tai ve chi can ChayDuAn.exe de dung ban da dong goi. Chi nguoi
+  chinh sua/compile du an moi can bat AutoSync tren may cua ho.
+- Truoc khi commit/push, dong Runtime va doi Tools/AutoSync-Status.txt bao
+  SYNC OK. Viec thay the thu muc co the tao thay doi tep/xoa tep trong git.
+
+KIEM THU
+Goi nay duoc soat ma nguon va kiem tra tinh toan ven ZIP trong moi truong
+Linux. Chua chay thu PowerShell/WinCC tren Windows. Can kiem thu mot thay
+doi nho tren HMI va thu che do cho khi Runtime dang mo truoc khi phat hanh.
