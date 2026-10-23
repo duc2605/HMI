@@ -1,5 +1,37 @@
 # BÁO CÁO TIẾN ĐỘ DỰ ÁN HMI BĂNG TẢI PHÂN LOẠI
 
+<!-- AUTO-PROGRESS:START -->
+## Cập nhật tự động từ GitHub
+
+> Mục này phản ánh lịch sử Git. Đánh giá hoàn thành và kết quả chạy thử ở các phần bên dưới thuộc mốc đánh giá thủ công, cần được nhóm xác nhận lại khi có thay đổi.
+
+- **Thời điểm commit nguồn mới nhất:** 23/10/2026 09:25 (UTC+7).
+- **Phiên bản nguồn:** [`e080989`](https://github.com/duc2605/HMI/commit/e080989d6f29a68a43387660ecb7ead5eafeb62e).
+- **Nội dung cập nhật:** Cap nhat toan bo du an HMI va bao cao tu dong.
+
+### 15 thay đổi gần nhất của người phát triển
+
+Nội dung dưới đây lấy từ thông điệp commit do người thực hiện ghi, chưa phải kết quả nghiệm thu tự động.
+
+| Ngày (UTC+7) | Commit | Nội dung | Ghi chú/kết quả do người thực hiện ghi |
+|---|---|---|---|
+| 23/10/2026 | [`e080989`](https://github.com/duc2605/HMI/commit/e080989d6f29a68a43387660ecb7ead5eafeb62e) | Cap nhat toan bo du an HMI va bao cao tu dong | Cap nhat du lieu du an TIA, Runtime va script camera hien tai. |
+| 23/10/2026 | [`e51e7e2`](https://github.com/duc2605/HMI/commit/e51e7e220c2b8d4cc9e946160132175802b6aa3c) | Them tu dong cap nhat bao cao tien do | Chưa ghi thêm |
+| 21/10/2026 | [`7f00733`](https://github.com/duc2605/HMI/commit/7f0073394dc999ed2862ca05af9a3c852ab2d10c) | Update HMI project, portable runtime, AutoSync and README | Chưa ghi thêm |
+| 07/10/2026 | [`1c8c3f7`](https://github.com/duc2605/HMI/commit/1c8c3f70d177834d332e3389013822d5ffe482e3) | Clean up README content | Removed inappropriate text and cleaned up the README. |
+| 07/10/2026 | [`ed9cb5d`](https://github.com/duc2605/HMI/commit/ed9cb5deed55f8835219773946f842be6e6cceb9) | Update README.md | Chưa ghi thêm |
+| 29/09/2026 | [`304e817`](https://github.com/duc2605/HMI/commit/304e81744a6f8f9e0454962cbddc9d4b80932d59) | Update README.md | Chưa ghi thêm |
+| 29/09/2026 | [`eb07dc5`](https://github.com/duc2605/HMI/commit/eb07dc5dbff0d3bafab8da869473ff8f0c2857ac) | Format steps in README.md as bullet points | Chưa ghi thêm |
+| 29/09/2026 | [`ad4a7a1`](https://github.com/duc2605/HMI/commit/ad4a7a1c23df1b2764091ec9a075276090d3b223) | Update README.md | Chưa ghi thêm |
+| 29/09/2026 | [`16bfc4d`](https://github.com/duc2605/HMI/commit/16bfc4d48e66ad6cc76254866f9f9bd3e547b950) | Update README with monitoring instructions | Add instructions for monitoring in Factory IO. |
+| 29/09/2026 | [`a18a79f`](https://github.com/duc2605/HMI/commit/a18a79f80369fb2fab2851e06dd6f47805cc4591) | Add semicolons to file references in README | Chưa ghi thêm |
+| 29/09/2026 | [`3dabe29`](https://github.com/duc2605/HMI/commit/3dabe29522ffafbb568cc346c446da5c66b848d0) | Add usage instructions for Factory IO and TIA Portal | Added step-by-step instructions for using Factory IO and TIA Portal. |
+| 29/09/2026 | [`1cb971c`](https://github.com/duc2605/HMI/commit/1cb971c88c2c4c76541748848f95eabcc61192f2) | Upload dự án HMI | Chưa ghi thêm |
+| 25/09/2026 | [`307a108`](https://github.com/duc2605/HMI/commit/307a1089ab2997196b91dd25dcb82be052117dbf) | Upload dự án TIA | Chưa ghi thêm |
+
+Muốn bổ sung kết quả thử nghiệm vào mục này, ghi chúng trong phần mô tả commit. Cập nhật trực tiếp các phần đánh giá bên dưới khi đã xác nhận chức năng.
+<!-- AUTO-PROGRESS:END -->
+
 **Mốc đánh giá thủ công:** 22/10/2026  
 **Nhóm thực hiện:** Nhóm 2  
 **Đề tài:** Xây dựng giao diện giám sát, vận hành hệ thống băng tải phân loại hàng theo chiều cao trên môi trường mô phỏng.  
