@@ -1,4 +1,4 @@
-﻿# Windows PowerShell 5.1. Launched by ChayDuAn.exe.
+﻿# Windows PowerShell 5.1. Supervisor v1.1: follow Runtime restarts.
 param([int]$RuntimeId = 0)
 # Starts no terminal windows. Only processes started here are stopped here.
 $ErrorActionPreference = 'Stop'
@@ -12,6 +12,8 @@ $encoder = $null
 $runtime = $null
 $captureHandle = 0
 $retryAt = [datetime]::MinValue
+$runtimeMissingSince = $null
+$runtimeGraceSeconds = 90
 
 function Write-VideoLog([string]$message) {
     Add-Content -LiteralPath (Join-Path $logDir 'supervisor.log') -Value ((Get-Date -Format 'yyyy-MM-dd HH:mm:ss') + ' ' + $message)
@@ -21,6 +23,17 @@ function Test-Alive($process) {
     if ($null -eq $process) { return $false }
     try { $process.Refresh(); return (-not $process.HasExited) }
     catch { return $false }
+}
+
+# ChayDuAn.exe allows one HMI Runtime session. Prefer a visible Runtime;
+# RuntimeId is accepted for compatibility, not used as a lifetime lock.
+function Find-LiveRuntime {
+    $all = @(Get-Process -Name HmiRTm -ErrorAction SilentlyContinue |
+        Sort-Object StartTime -Descending)
+    $visible = @($all | Where-Object { $_.MainWindowHandle -ne 0 })
+    if ($visible.Count -gt 0) { return $visible[0] }
+    if ($all.Count -gt 0) { return $all[0] }
+    return $null
 }
 
 function Stop-OwnedProcess($process) {
@@ -51,21 +64,16 @@ try {
         }
     }
 
-    # The launcher supplies the exact Runtime process it just started.
-    $deadline = (Get-Date).AddSeconds(30)
+    Write-VideoLog ('Supervisor v1.1 started; launcher PID hint ' + $RuntimeId)
+    # Runtime may hand off to a different PID or be retried after a load error.
+    $deadline = (Get-Date).AddSeconds($runtimeGraceSeconds)
     do {
-        if ($RuntimeId -gt 0) {
-            $runtime = Get-Process -Id $RuntimeId -ErrorAction SilentlyContinue
-        }
-        else {
-            $runtime = Get-Process -Name HmiRTm -ErrorAction SilentlyContinue |
-                Select-Object -First 1
-        }
+        $runtime = Find-LiveRuntime
         if ($null -ne $runtime) { break }
         Start-Sleep -Seconds 1
     } while ((Get-Date) -lt $deadline)
-    if ($null -eq $runtime) { throw 'Runtime process not found. Start the project with ChayDuAn.exe.' }
-    Write-VideoLog ('Started for Runtime PID ' + $runtime.Id)
+    if ($null -eq $runtime) { throw 'No HmiRTm process found within 90 seconds. Open WinCC Runtime and run the launcher again.' }
+    Write-VideoLog ('Attached to Runtime PID ' + $runtime.Id)
 
     if (Test-RtspPort) {
         Write-VideoLog 'RTSP port already in use. Reusing the existing server; it will not be stopped by this script.'
@@ -80,7 +88,26 @@ try {
         if (-not (Test-RtspPort)) { throw 'MediaMTX did not open port 8554.' }
     }
 
-    while (Test-Alive $runtime) {
+    while ($true) {
+        if (-not (Test-Alive $runtime)) {
+            $replacement = Find-LiveRuntime
+            if ($null -ne $replacement) {
+                if ($null -ne $runtime) { $runtime.Dispose() }
+                $runtime = $replacement
+                $runtimeMissingSince = $null
+                Write-VideoLog ('Reattached to Runtime PID ' + $runtime.Id)
+            }
+            else {
+                if ($null -eq $runtimeMissingSince) {
+                    $runtimeMissingSince = Get-Date
+                    Write-VideoLog 'Runtime PID exited. Keeping video available for up to 90 seconds while waiting for a replacement Runtime.'
+                }
+                if (((Get-Date) - $runtimeMissingSince).TotalSeconds -ge $runtimeGraceSeconds) { break }
+                Start-Sleep -Seconds 1
+                continue
+            }
+        }
+        $runtimeMissingSince = $null
         $factory = Get-Process -ErrorAction SilentlyContinue |
             Where-Object { $_.ProcessName -match 'factory' -and $_.MainWindowHandle -ne 0 } |
             Select-Object -First 1
@@ -103,7 +130,7 @@ try {
         }
         Start-Sleep -Seconds 2
     }
-    Write-VideoLog 'Runtime closed. Stopping owned video processes.'
+    Write-VideoLog 'No Runtime for 90 seconds. Stopping owned video processes.'
 }
 catch {
     Write-VideoLog ('ERROR: ' + $_.Exception.Message)
@@ -117,4 +144,5 @@ finally {
     Stop-OwnedProcess $server
     if ($locked) { $mutex.ReleaseMutex() }
     $mutex.Dispose()
+    if ($null -ne $runtime) { $runtime.Dispose() }
 }
